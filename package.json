@@ -1,0 +1,24 @@
+{
+  "name": "cuty",
+  "version": "0.0.1",
+  "description": "a Node.js MVC framework",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slashhuang/summer.git"
+  },
+  "keywords": [
+    "cuty",
+    "node.js",
+    "mvc"
+  ],
+  "author": "slashhuang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/slashhuang/summer/issues"
+  },
+  "homepage": "https://github.com/slashhuang/summer#readme"
+}
