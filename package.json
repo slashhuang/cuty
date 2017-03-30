@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/slashhuang/summer.git"
+    "url": "git+https://github.com/slashhuang/cuty.git"
   },
   "keywords": [
     "cuty",
@@ -18,7 +18,7 @@
   "author": "slashhuang",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/slashhuang/summer/issues"
+    "url": "https://github.com/slashhuang/cuty/issues"
   },
-  "homepage": "https://github.com/slashhuang/summer#readme"
+  "homepage": "https://github.com/slashhuang/cuty#readme"
 }
