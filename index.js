@@ -40,7 +40,7 @@ class Cuty {
         return (req,res)=>{
             let ctx = this.createContext(req,res);
             flow(ctx).then(()=>{
-                res.end('flow walked through')
+                res.end(ctx.body)
             }).catch((error)=>{
                 res.end(error.stack)
             })
