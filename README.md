@@ -12,13 +12,7 @@
 
  2. LifeCycle hook is integrated in Cuty to facilitate app's flexibility.
 
- 3. Completely compatible with Koa's ecosystem middlewares,which means you can easily migrate koa to Cuty
-
-# Comparison with express and Koa
-
-> you can reference the this doc to have an overview comparion.
-
-> [Comparison with Other Frameworks ](./doc/comparison.md)
+ 3. Cuty is Completely compatible with Koa's 3rd party middlewares,which means that koa apps can easily migrate to Cuty
 
 
 # install
@@ -26,6 +20,12 @@
 ```js
 	npm install cuty
 ```
+
+# Comparison with express and Koa
+
+> you can reference the this doc to have an overview comparion.
+
+> [Comparison with Other Frameworks ](./doc/comparison.md)
 
 # changelog
 
