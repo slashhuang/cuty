@@ -11,13 +11,13 @@ const urlParser = require('./url-parser-middleware');
 module.exports = {
     start:urlParser,
     controller:(ctx,next)=>{
-        let { url } =ctx;
-        if(url.match('\.action')){
+        let { url } =ctx.req;
+        if(url.match(/\.action/)){
             return api
-        }else if(url.match('\.')){
-            return static
+        }else if(url.match(/\./)){
+            return static(ctx,next)
         }else{
-            return view
+            return view(ctx,next)
         }
     },
     end:log

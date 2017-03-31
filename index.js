@@ -5,7 +5,7 @@
  */
 const Cookies = require('cookies');
 const debug = require('debug')
-
+const cutyCompose = require('./src/cuty-compose');
 class Cuty {
     constructor(){
         this.middlewareTree={};
@@ -33,45 +33,16 @@ class Cuty {
         context.body=''
         return context;
    }
-   composeChain(middlewareArray){
-        let { length } = middlewareArray;
-        return (ctx)=>{
-            let count = 0;
-            let chain = Promise.resolve();
-            while(count>length){
-                //use thenable to queued to microtask
-                let nextMiddleware = middlewareArray[count];
-                chain = chain.then(()=>
-                    Promise.resolve({
-                        then:(resolve,reject)=>{
-                            if(typeof nextMiddleware!=='function'){
-                                reject(new TypeError(`${nextMiddleware.name} is not a function`))
-                            }
-                            nextMiddleware(ctx,resolve)
-                        }
-                }));
-                count++;
-            }
-            return chain
-        }
-   }
-   flow(){
-        let {start,end,controller} = this.middlewareTree;
-        return this.composeChain([
-                    start,
-                    controller,
-                    end
-                ])
-    }
     // use same api as koa@next
     callback(){
-        let flow =  this.flow();
+        let {start,end,controller} = this.middlewareTree;
+        let flow = cutyCompose([start,controller,end])
         return (req,res)=>{
             let ctx = this.createContext(req,res);
             flow(ctx).then(()=>{
                 res.end('flow walked through')
-            }).catch(()=>{
-                res.end(Buffer.from('hello world'))
+            }).catch((error)=>{
+                res.end(error.stack)
             })
         }
 
