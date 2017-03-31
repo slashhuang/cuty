@@ -13,17 +13,18 @@ class Cuty {
     use(middlewareTree){
         let {start,end,controller} = middlewareTree;
         if(!start || !end || !controller){
-            // throw Error(`cuty's middlewareTree requires start,key,controller to signal data flow `)
+            throw TypeError(`cuty's middlewareTree requires start,key,controller AS middlewareTree `)
         }
         this.middlewareTree = middlewareTree
     }
     createContext(req, res) {
+        let context = {};
         context.req = req;
         context.res = res;
         //shape for last output
         context.cookies = new Cookies(req, res, {
           keys: this.keys,
-          secure: request.secure
+          secure: req.secure
         });
         //requse response context
         context.req.ctx={}
@@ -31,9 +32,6 @@ class Cuty {
         //last output
         context.body=''
         return context;
-   }
-   parallel(controller){
-
    }
    composeChain(middlewareArray){
         let { length } = middlewareArray;
@@ -61,7 +59,7 @@ class Cuty {
         let {start,end,controller} = this.middlewareTree;
         return this.composeChain([
                     start,
-                    this.parallel(controller),
+                    controller,
                     end
                 ])
     }

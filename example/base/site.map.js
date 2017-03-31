@@ -9,7 +9,7 @@ const static = require('./static-middleware');
 const urlParser = require('./url-parser-middleware');
 
 module.exports = {
-    root:urlParser,
+    start:urlParser,
     controller:(ctx,next)=>{
         let { url } =ctx;
         if(url.match('\.action')){
