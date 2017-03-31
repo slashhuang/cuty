@@ -28,9 +28,10 @@
     const Cuty = require('cuty');
     const app = new Cuty();
     //middleware
-    app.use(ctx => {
+    app.use([(ctx,next) => {
       ctx.body = 'Hello Koa';
-    });
+      next()
+    }]);
     app.listen(3000);
 
 ```
