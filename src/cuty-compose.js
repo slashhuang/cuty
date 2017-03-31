@@ -14,7 +14,6 @@
             while(count<length){
                 //use thenable to queued to microtask
                 let nextMiddleware = middlewareArray[count];
-                console.log(nextMiddleware.toString())
                 chain = chain.then(()=>
                     Promise.resolve({
                         then:(resolve,reject)=>{
