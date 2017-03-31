@@ -22,26 +22,21 @@ class Cuty {
 
     }
     createContext(req, res) {
-        const context = Object.create(this.context);
-        const request = context.request = Object.create(this.request);
-        const response = context.response = Object.create(this.response);
-        context.app = request.app = response.app = this;
-        context.req = request.req = response.req = req;
-        context.res = request.res = response.res = res;
-        request.ctx = response.ctx = context;
-        request.response = response;
-        response.request = request;
-        context.onerror = context.onerror.bind(context);
-        context.originalUrl = request.originalUrl = req.url;
+        context.req = req;
+        context.res = res;
+        //shape for last output
         context.cookies = new Cookies(req, res, {
           keys: this.keys,
           secure: request.secure
         });
-        context.accept = request.accept = accepts(req);
-        context.state = {};
+        //requse response context
+        context.req.ctx={}
+        context.res.ctx={}
+        //last output
+        context.body=''
         return context;
    }
-   flow(ctx,next){
+   flow(ctx){
         let {start,end,controller} = this.middlewareTree;
         return Promise.resolve().then(()=>{
             return start(ctx,next).then(()=>{
@@ -56,7 +51,7 @@ class Cuty {
         let flow =  this.flow();
         return (req,res)=>{
             let ctx = this.createContext(req,res);
-            flow().then(()=>{
+            flow(ctx).then(()=>{
                 res.end('flow walked through')
             }).catch(()=>{
                 res.end(Buffer.from('hello world'))
