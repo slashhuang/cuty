@@ -6,29 +6,26 @@
 
 
 class Cuty {
+    constructor(){
+
+    }
+    useParallel(){
 
 
+    }
+    use(){
+
+    }
     // use same api as koa@next
     callback(){
 
         return (req,res)=>{
 
-
-
-
             res.end(Buffer.from('hello world'))
-
 
 
         }
 
     }
-
-
-
 }
-
-
-
-
 module.exports=Cuty;
