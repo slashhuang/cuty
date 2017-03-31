@@ -1,16 +1,24 @@
-# cuty
+# Cuty
 
-> cuty.js is a Node.js framework driven by MVC mode.
+> Cuty project started on 17/3/31 , It is a Node.js framework driven by MVC and Middlewares.
 
-> different from koa or express, cuty combines MVC with stream based workflow to build your Node.js app.
+> Unlike `koa` or `express`, cuty combines MVC and middleware workflow to build Node.js apps.
 
-> This repo will continue to update summer.
+# why choose Cuty
+
+> you can reference the this doc to have an overview of Cuty
+
+> [why choose Cuty](./doc/inspiration.md)
+
 
 # install
 
 ```js
 	npm install cuty
 ```
+
+# changelog
+> This repo will continue to update Cuty.
 
 ## copyright
 
