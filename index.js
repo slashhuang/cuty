@@ -32,33 +32,30 @@ class Cuty {
         context.body=''
         return context;
    }
-   //decorate middleware
-   decorate(middleware){
-        return Promise.resolve({
-            then:(resolve,reject)=>{
-                return middleware(,resolve)
-            }
-        })
-   }
    parallel(controller){
 
    }
    composeChain(middlewareArray){
         let { length } = middlewareArray;
-        let chain = Promise.resolve();
         return (ctx)=>{
             let count = 0;
+            let chain = Promise.resolve();
             while(count>length){
-
+                //use thenable to queued to microtask
+                let nextMiddleware = middlewareArray[count];
+                chain = chain.then(()=>
+                    Promise.resolve({
+                        then:(resolve,reject)=>{
+                            if(typeof nextMiddleware!=='function'){
+                                reject(new TypeError(`${nextMiddleware.name} is not a function`))
+                            }
+                            nextMiddleware(ctx,resolve)
+                        }
+                }));
+                count++;
             }
-            Promise.resolve().then(()=>
-                Promise.resolve({
-                    then:(resolve,reject)=>{
-                        nextMiddleware(ctx,resolve)
-                    }
-            })
-        )
-    }
+            return chain
+        }
    }
    flow(){
         let {start,end,controller} = this.middlewareTree;
