@@ -9,17 +9,14 @@ const debug = require('debug')
 class Cuty {
     constructor(){
         this.middlewareTree={};
-
+        this.promiseFlow = Promise.resolve();
     }
     use(middlewareTree){
         let {start,end,controller} = middlewareTree;
-        if(!start || !end !controller){
-            throw Error(`cuty's middlewareTree requires start,key,controller to signal data flow `)
+        if(!start || !end || !controller){
+            // throw Error(`cuty's middlewareTree requires start,key,controller to signal data flow `)
         }
         this.middlewareTree = middlewareTree
-    }
-    parallel(){
-
     }
     createContext(req, res) {
         context.req = req;
@@ -36,15 +33,29 @@ class Cuty {
         context.body=''
         return context;
    }
-   flow(ctx){
-        let {start,end,controller} = this.middlewareTree;
-        return Promise.resolve().then(()=>{
-            return start(ctx,next).then(()=>{
-                return this.parallel(controller)
-            }).then(()=>{
-                return end()
-            })
+   //decorate middleware
+   decorate(middleware){
+        return Promise.resolve({
+            then:(resolve,reject)=>{
+                return middleware(,resolve)
+            }
         })
+   }
+   parallel(controller){
+
+   }
+   composeChain(nextMiddleware){
+        return this.promiseFlow.then(()=>{
+            return Promise.resolve(nextMiddleware)
+        })
+   }
+   flow(){
+        let {start,end,controller} = this.middlewareTree;
+        return (ctx)=>this.composeChain([
+                    start,
+                    this.parallel(controller),
+                    end
+                ])
     }
     // use same api as koa@next
     callback(){
