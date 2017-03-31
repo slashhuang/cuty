@@ -53,7 +53,7 @@
 ```
 
 # changelog
-> This repo will continue to update Cuty.
+> This repo will continue Cuty's development.
 
 ## copyright
 
