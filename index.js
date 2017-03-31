@@ -4,17 +4,17 @@
  * 17/3/31
  */
 
-
 class Cuty {
     constructor(){
+        this.middleware=[];
 
     }
     useParallel(){
 
 
     }
-    use(){
-
+    use(middleware){
+        this.middleware.push(middleware)
     }
     // use same api as koa@next
     callback(){

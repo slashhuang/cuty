@@ -18,8 +18,7 @@ const view = require('./view-middleware');
 const static = require('./static-middleware');
 const urlParser = require('./url-parser-middleware');
 
-//[log]
-
+// integrate middleware into app
 app.use(urlParser);
 app.useParallel([ view,static]);
 app.use(log);
