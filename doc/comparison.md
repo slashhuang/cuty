@@ -26,16 +26,13 @@ Also, koa's middleware workflow using `koa-compose` is a straight-forward uni-di
  1. stream-like middlewares are flattened without good structure.
 
  >  when too many middlewares are arranged into the app, the handle flow becomes perplexed.
-
  >  developers have to maintain each middleware's functionality while worrying about other middleware's logic
 
 
 2. Developers have to filter the handle logic in each middleware without a Top-level structure.
 
  > middleware's role-play is flattened which leads to reduntant filter logic in each.
-
  > take `koa` For instance,`koa-send` and `koa-router` actually stays in parallel position in Node app which means one request can only be flowed into one of them to handle logic.
-
  > but they are framed in the same middleware queue in `koa`, which leads to perplexed flow logic.
 
 
