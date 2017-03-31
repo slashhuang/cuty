@@ -21,6 +21,22 @@
 	npm install cuty
 ```
 
+# Usage
+
+```js
+
+    const Cuty = require('cuty');
+    const app = new Cuty();
+    //middleware
+    app.use(ctx => {
+      ctx.body = 'Hello Koa';
+    });
+    app.listen(3000);
+
+```
+
+
+
 # Comparison with express and Koa
 
 > you can reference the this doc to have an overview comparion.
@@ -34,3 +50,5 @@
 ## copyright
 
 slashhuang
+
+
