@@ -2,48 +2,23 @@
 
  Cuty project started on 17/3/31 , It is a Node.js framework driven by MVC and Middlewares.
 
+ In Cuty's development , I adopted a lot of ideas from koa and express.
 
-# why have another `Cuty`
+ Basically, Cuty combines the advantage of MVC and middleware-flow to shape Node.js application.
 
+## Cuty's features
 
- As Node.js is an async/IO runtime, most of Node.js framework uses stream-like middlewares to
+ 1. Cuty helps you to build MVC and middleware workflow Node apps.
 
- frame apps.
+ 2. LifeCycle hook is integrated in Cuty to facilitate app's flexibility.
 
- For instance `koa` or `express`.
+ 3. Completely compatible with Koa's ecosystem middlewares,which means you can easily migrate koa to Cuty
 
- These frameworks are great ,but also have disadvantages listed below.
+# Comparison with express and Koa
 
- 1. stream-like middlewares are flattened without good structure.
+> you can reference the this doc to have an overview comparion.
 
- >  when too many middlewares are arranged into the app, the handle flow becomes perplexed.
-
- >  developers have to maintain each middleware's functionality while worrying about other middleware's logic
-
-
-
-2. Developers have to filter the handle logic in each middleware without a Top-level structure.
-
- > middleware's role-play is flattened which leads to reduntant filter logic in each.
-
- > take `koa` For instance ,`koa-send` and `koa-router` actually handles logic seprately,
-
- > but they are framed in the same middleware queue, which leads to perplexed flow logic.
-
-
- Different from stream-like  middleware architecture,
-
- Cuty combines MVC and middleware workflow to make app building structured and streamed.
-
- Also,lifeCycle hook is integrated in each middleware to make app building more flexible and robust.
-
- Let's dive into `Cuty` to get more taste of it.
-
-# Cuty's zen
-
-> you can reference the this doc to have an overview of Cuty
-
-> [Cuty's zen ](./doc/inspiration.md)
+> [Comparison with Other Frameworks ](./doc/comparison.md)
 
 
 # install
@@ -53,6 +28,7 @@
 ```
 
 # changelog
+
 > This repo will continue Cuty's development.
 
 ## copyright
