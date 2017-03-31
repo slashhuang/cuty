@@ -32,7 +32,7 @@
       ctx.body = 'Hello Koa';
       next()
     }]);
-    app.listen(3000);
+    http.createServer(app.callback()).listen(3000);
 
 ```
 
