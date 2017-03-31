@@ -6,36 +6,44 @@
 # why have another `Cuty`
 
 
- As Node.js is a async/IO runtime, most of Node.js framework uses stream-like middlewares to
+ As Node.js is an async/IO runtime, most of Node.js framework uses stream-like middlewares to
 
- frame apps. For example `koa` or `express`.
+ frame apps.
 
- These frameworks are great ,but also have several disadvantages.
+ For instance `koa` or `express`.
+
+ These frameworks are great ,but also have disadvantages listed below.
+
+ 1. stream-like middlewares are flattened without good structure.
+
+ >  when too many middlewares are arranged into the app, the handle flow becomes perplexed.
+
+ >  developers have to maintain each middleware's functionality while worring about other middleware's handle logic.
 
 
- - stream-like middlewares are flattened but not structured.
 
- > app's shape is not suited when too many middlewares are arranged into the app.
-
-
- - Developers have to filter the handle logic to decide whethor or not to handle the logic.
+2. Developers have to filter the handle logic to decide whethor or not to handle the logic.
 
  > middleware's role-play is flattened which leads to reduntant filter logic in each.
+
+ > take `koa` For instance ,`koa-send` and `koa-router` actually handles logic seprately,
+
+ > but they are framed in the same middleware queue, which leads to perplexed flow logic.
 
 
  Different from stream-like  middleware architecture,
 
- Cuty combines MVC and middleware workflow to build Node.js apps,
+ Cuty combines MVC and middleware workflow to make app building structured and streamed.
 
- Also,lifeCycle hook is integrated in each app which makes app building more robust.
+ Also,lifeCycle hook is integrated in each middleware to make app building more flexible and robust.
 
-
+ Let's dive into `Cuty` to get more taste of it.
 
 # Cuty's zen
 
 > you can reference the this doc to have an overview of Cuty
 
-> [Cuty's zen](./doc/inspiration.md)
+> [Cuty's zen ](./doc/inspiration.md)
 
 
 # install
