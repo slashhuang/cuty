@@ -12,16 +12,9 @@ const app = new Cuty();
 const http = require('http');
 const server = http.createServer().listen(3000);
 
-//middleware
-const log = require('./log-middleware');
-const view = require('./view-middleware');
-const static = require('./static-middleware');
-const urlParser = require('./url-parser-middleware');
-
-// integrate middleware into app
-app.use(urlParser);
-app.useParallel([ view,static]);
-app.use(log);
+// integrate middleware structure into app
+const middlewareMap = require('./site.map.js');
+app.use(middlewareMap);
 
 // start the app
 server.on('request',app.callback());

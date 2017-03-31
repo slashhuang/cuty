@@ -6,24 +6,32 @@
 
 class Cuty {
     constructor(){
-        this.middleware=[];
+        this.middlewareTree={};
 
     }
-    useParallel(){
-
-
+    use(middlewareTree){
+        let {start,end,controller} = middlewareTree;
+        if(!start || !end !controller){
+            throw Error(`cuty's middlewareTree requires start,key,controller to signal data flow `)
+        }
+        this.middlewareTree = middlewareTree
     }
-    use(middleware){
-        this.middleware.push(middleware)
+    flow(){
+        return Promise.resolve().then(()=>{
+
+
+
+        })
     }
     // use same api as koa@next
     callback(){
 
         return (req,res)=>{
-
-            res.end(Buffer.from('hello world'))
-
-
+            this.flow().then(()=>{
+                res.end('flow walked through')
+            }).catch(()=>{
+                res.end(Buffer.from('hello world'))
+            })
         }
 
     }
