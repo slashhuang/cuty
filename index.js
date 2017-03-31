@@ -9,7 +9,6 @@ const debug = require('debug')
 class Cuty {
     constructor(){
         this.middlewareTree={};
-        this.promiseFlow = Promise.resolve();
     }
     use(middlewareTree){
         let {start,end,controller} = middlewareTree;
@@ -44,14 +43,26 @@ class Cuty {
    parallel(controller){
 
    }
-   composeChain(nextMiddleware){
-        return this.promiseFlow.then(()=>{
-            return Promise.resolve(nextMiddleware)
-        })
+   composeChain(middlewareArray){
+        let { length } = middlewareArray;
+        let chain = Promise.resolve();
+        return (ctx)=>{
+            let count = 0;
+            while(count>length){
+
+            }
+            Promise.resolve().then(()=>
+                Promise.resolve({
+                    then:(resolve,reject)=>{
+                        nextMiddleware(ctx,resolve)
+                    }
+            })
+        )
+    }
    }
    flow(){
         let {start,end,controller} = this.middlewareTree;
-        return (ctx)=>this.composeChain([
+        return this.composeChain([
                     start,
                     this.parallel(controller),
                     end
