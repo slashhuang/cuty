@@ -18,11 +18,11 @@
 
  >  when too many middlewares are arranged into the app, the handle flow becomes perplexed.
 
- >  developers have to maintain each middleware's functionality while worring about other middleware's handle logic.
+ >  developers have to maintain each middleware's functionality while worrying about other middleware's logic
 
 
 
-2. Developers have to filter the handle logic to decide whethor or not to handle the logic.
+2. Developers have to filter the handle logic in each middleware without a Top-level structure.
 
  > middleware's role-play is flattened which leads to reduntant filter logic in each.
 
