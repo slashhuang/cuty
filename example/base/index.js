@@ -5,7 +5,7 @@
 
 // base app for cuty
 const path =require('path');
-const Cuty = require(path.resolve(process.cwd(),'index'));
+const Cuty = require(path.resolve(process.cwd(),'src/cuty'));
 const app = new Cuty();
 const Port = 3000;
 // app structure
