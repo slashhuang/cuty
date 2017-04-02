@@ -20,7 +20,9 @@
                             if(typeof nextMiddleware!=='function'){
                                 reject(new TypeError(`${nextMiddleware} is not a function`))
                             }
-                            nextMiddleware(ctx,resolve)
+                            // call resolve to the next promiseflow
+                            // call reject to abort the flow to catch 
+                            nextMiddleware(ctx,resolve,reject)
                         }
                 }));
                 count++;

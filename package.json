@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon ./src/cuty.js",
     "example": "nodemon --inspect example/base/index",
-    "test":"nodemon test"
+    "test": "nodemon test"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,10 @@
   },
   "homepage": "https://github.com/slashhuang/cuty#readme",
   "devDependencies": {
+    "debug": "^2.6.3",
     "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "cookies": "^0.7.0"
   }
 }
