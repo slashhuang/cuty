@@ -5,6 +5,12 @@
  * cuty-compose
  */
 
+ const util = require('util');
+ const eventEmitter = require('events');
+ // middleware eventEmitter
+ const mixin= (middleware)=>{
+     util.inherits(middleware,eventEmitter);
+ }
 
  module.exports = (middlewareArray)=>{
         let { length } = middlewareArray;
@@ -14,6 +20,7 @@
             while(count<length){
                 //use thenable to queued to microtask
                 let nextMiddleware = middlewareArray[count];
+                mixin(nextMiddleware);
                 chain = chain.then(()=>
                     Promise.resolve({
                         then:(resolve,reject)=>{
