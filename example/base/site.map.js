@@ -8,9 +8,9 @@ const api = require('./api-middleware');
 const static = require('./static-middleware');
 const urlParser = require('./url-parser-middleware');
 
-module.exports = {
-    start:urlParser,
-    controller:(ctx,next)=>{
+module.exports = [
+    urlParser,
+    (ctx,next)=>{
         let { url } =ctx.req;
         if(url.match(/\.action/)){
             return api(ctx,next)
@@ -20,5 +20,5 @@ module.exports = {
             return view(ctx,next)
         }
     },
-    end:log
-}
+   log
+]

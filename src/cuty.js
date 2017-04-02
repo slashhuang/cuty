@@ -5,17 +5,20 @@
  */
 const Cookies = require('cookies');
 const debug = require('debug')
-const cutyCompose = require('./cuty-compose');
+const cutyCompose = require('./middleware-compose');
 class Cuty {
     constructor(){
-        this.middlewareTree={};
+        this.middlewareArr=[];
     }
-    use(middlewareTree){
-        let {start,end,controller} = middlewareTree;
-        if(!start || !end || !controller){
-            throw TypeError(`cuty's middlewareTree requires start,key,controller AS middlewareTree `)
+    use(middleware){
+        if(Array.isArray(middleware)){
+             this.middlewareArr = this.middlewareArr.concat(middleware)
+        }else{
+            if(typeof middleware!=='function'){
+                throw TypeError(`cuty's middlewareTree requires start,key,controller AS middlewareTree `)
+            };
+            this.middlewareArr.push(middleware)
         }
-        this.middlewareTree = middlewareTree
     }
     createContext(req, res) {
         let context = {};
@@ -35,8 +38,7 @@ class Cuty {
    }
     // use same api as koa@next
     callback(){
-        let {start,end,controller} = this.middlewareTree;
-        let flow = cutyCompose([start,controller,end])
+        let flow = cutyCompose(this.middlewareArr)
         return (req,res)=>{
             let ctx = this.createContext(req,res);
             flow(ctx).then(()=>{

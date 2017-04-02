@@ -14,7 +14,9 @@ const server = http.createServer()
 
 // integrate middleware structure into app
 const middlewareMap = require('./site.map.js');
+console.log(middlewareMap)
 app.use(middlewareMap);
+console.log(app)
 
 // start the app
 server.on('request',app.callback());

@@ -7,6 +7,8 @@
 
  const util = require('util');
  const eventEmitter = require('events');
+ const middlewarePromise = require('./middleware');
+
  // middleware eventEmitter
  const mixin= (middleware)=>{
      util.inherits(middleware,eventEmitter);
@@ -18,20 +20,9 @@
             let count = 0;
             let chain = Promise.resolve();
             while(count<length){
-                //use thenable to queued to microtask
                 let nextMiddleware = middlewareArray[count];
                 mixin(nextMiddleware);
-                chain = chain.then(()=>
-                    Promise.resolve({
-                        then:(resolve,reject)=>{
-                            if(typeof nextMiddleware!=='function'){
-                                reject(new TypeError(`${nextMiddleware} is not a function`))
-                            }
-                            // call resolve to the next promiseflow
-                            // call reject to abort the flow to catch 
-                            nextMiddleware(ctx,resolve,reject)
-                        }
-                }));
+                chain = chain.then(()=>middlewarePromise(ctx)(nextMiddleware));
                 count++;
             }
             return chain
