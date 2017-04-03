@@ -7,12 +7,6 @@
 
  const util = require('util');
  const eventEmitter = require('events');
- const middlewarePromise = require('./middleware');
-
- // middleware eventEmitter
- const mixin= (middleware)=>{
-     util.inherits(middleware,eventEmitter);
- }
 
  module.exports = (middlewareArray)=>{
         let { length } = middlewareArray;
@@ -21,8 +15,12 @@
             let chain = Promise.resolve();
             while(count<length){
                 let nextMiddleware = middlewareArray[count];
-                mixin(nextMiddleware);
-                chain = chain.then(()=>middlewarePromise(ctx)(nextMiddleware));
+                chain = chain.then(()=>{
+                    return  Promise.resolve({
+                                then:(resolve,reject)=>{
+                                    nextMiddleware(ctx,resolve,reject)
+                            }})
+                });
                 count++;
             }
             return chain

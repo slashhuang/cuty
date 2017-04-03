@@ -5,7 +5,7 @@
  */
 const Cookies = require('cookies');
 const debug = require('debug')
-const cutyCompose = require('./middleware-compose');
+const cutyCompose = require('./cuty-compose');
 class Cuty {
     constructor(){
         this.middlewareArr=[];
