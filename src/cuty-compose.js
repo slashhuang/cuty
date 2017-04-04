@@ -8,21 +8,29 @@
  const util = require('util');
  const eventEmitter = require('events');
 
- module.exports = (middlewareArray)=>{
-        let { length } = middlewareArray;
-        return (ctx)=>{
-            let count = 0;
-            let chain = Promise.resolve();
-            while(count<length){
-                let nextMiddleware = middlewareArray[count];
-                chain = chain.then(()=>{
-                    return  Promise.resolve({
-                                then:(resolve,reject)=>{
+ module.exports = middlewareArray=>ctx=>{
+        let chain = Promise.resolve();
+        for (let nextMiddleware of middlewareArray){
+            chain = chain.then(()=>{
+                return  Promise.resolve({
+                            then:(resolve,reject)=>{
+                                let { interceptor } = nextMiddleware;
+                                // call middleware interceptor first
+
+                                if(typeof interceptor=='function'){
+                                    Promise.resolve({
+                                        then:(res,rej)=>{
+                                            interceptor(ctx,res,resolve)
+                                        }
+                                    }).then(()=>{
+                                        nextMiddleware(ctx,resolve,reject)
+                                    })
+                                }else{
                                     nextMiddleware(ctx,resolve,reject)
-                            }})
-                });
-                count++;
-            }
-            return chain
+                                }
+                                
+                        }})
+            });
         }
-   }
+        return chain
+};

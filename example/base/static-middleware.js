@@ -1,8 +1,7 @@
 
 
 // static server test
-module.exports=(ctx,next)=>{
-
+const staticMiddleware = (ctx,next)=>{
     Promise.resolve({
         then:(res,rej)=>{
             setTimeout(()=>{
@@ -13,3 +12,12 @@ module.exports=(ctx,next)=>{
     })
 
 }
+staticMiddleware.interceptor = (ctx,flow,cross)=>{
+	  let { url } =ctx.req;
+      if(!url.match(/\.action/) && url.match(/\./)){
+      	flow()
+      }else{
+      	cross()
+      }
+};
+module.exports = staticMiddleware

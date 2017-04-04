@@ -10,15 +10,8 @@ const urlParser = require('./url-parser-middleware');
 
 module.exports = [
     urlParser,
-    (ctx,next)=>{
-        let { url } =ctx.req;
-        if(url.match(/\.action/)){
-            return api(ctx,next)
-        }else if(url.match(/\./)){
-            return static(ctx,next)
-        }else{
-            return view(ctx,next)
-        }
-    },
-   log
+    api,
+    static,
+    view,
+    log
 ]

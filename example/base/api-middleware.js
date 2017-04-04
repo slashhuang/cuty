@@ -1,8 +1,7 @@
 
 
 // api server test
-module.exports=(ctx,next)=>{
-
+const apiMiddleware = (ctx,next)=>{
     Promise.resolve({
         then:(res,rej)=>{
             setTimeout(()=>{
@@ -13,3 +12,12 @@ module.exports=(ctx,next)=>{
     })
 
 }
+apiMiddleware.interceptor = (ctx,flow,cross)=>{
+	  let { url } =ctx.req;
+      if(url.match(/\.action/)){
+      	flow()
+      }else{
+      	cross()
+      }
+}
+module.exports=apiMiddleware
