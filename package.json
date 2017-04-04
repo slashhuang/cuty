@@ -1,8 +1,8 @@
 {
   "name": "cuty",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a Node.js MVC framework",
-  "main": "index.js",
+  "main": "src/cuty.js",
   "scripts": {
     "start": "nodemon ./src/cuty.js",
     "example": "nodemon --inspect example/base/index",
