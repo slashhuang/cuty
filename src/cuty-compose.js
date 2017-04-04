@@ -16,14 +16,15 @@
                             then:(resolve,reject)=>{
                                 let { interceptor } = nextMiddleware;
                                 // call middleware interceptor first
-
                                 if(typeof interceptor=='function'){
                                     Promise.resolve({
                                         then:(res,rej)=>{
-                                            interceptor(ctx,res,resolve)
+                                            interceptor(ctx,res,rej)
                                         }
                                     }).then(()=>{
                                         nextMiddleware(ctx,resolve,reject)
+                                    }).catch(()=>{
+                                        resolve()
                                     })
                                 }else{
                                     nextMiddleware(ctx,resolve,reject)
