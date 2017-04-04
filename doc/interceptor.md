@@ -30,3 +30,11 @@ then `interceptor` is the way.
 
 ```
 
+when you call `flow()`, the current cuty app middleware logic will get's excuted.
+
+when you call `cross()`, the current cuty app middleware logic will get's ignored and the flow will go to the next middleware.
+.
+
+
+
+
