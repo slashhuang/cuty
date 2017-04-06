@@ -6,10 +6,10 @@
 
 ```js
 
-	let apiMiddleware = (ctx,resolve,reject)=>{
-		ctx.body = 'hello world'
-		resolve()
-	}
+    let apiMiddleware = (ctx,resolve,reject)=>{
+        ctx.body = 'hello world'
+        resolve()
+    }
 
 ```
 
@@ -18,15 +18,15 @@ if developers want to filter url to decide `apiMiddleware` flow logic.
 then `interceptor` is the way.
 
 ```js
-	apiMiddleware.interceptor=(ctx,flow,cross)=>{
-		if(ctx.url.match('html')){
-			//flow to  apiMiddleware logic
-			flow()
-		}else{
-			//pass apiMiddleware logic
-			cross()
-		}	
-	}
+    apiMiddleware.interceptor=(ctx,flow,cross)=>{
+        if(ctx.url.match('html')){
+            //flow to  apiMiddleware logic
+            flow()
+        }else{
+            //pass apiMiddleware logic
+            cross()
+        }
+    }
 
 ```
 

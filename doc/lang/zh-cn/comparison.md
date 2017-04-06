@@ -1,12 +1,20 @@
-## why choose cuty
+## 相比于koa和express
 
-> a basic Http server model is framed like below
+## 历史的演进`koa`和`express`
 
-![http_model](./assets/http_model.png)
+在Node.js应用中，我们已经有了有名的框架。比如`express`和`koa`.
 
-## Problem with koa or express
+它们都拥有很好的框架设计思路。 比如`express`在设计思路上围绕着`routes`展开，流程的展开围绕中间件和路由两个核心点。
+而`koa`框架是`express`的升级版，它为开发者提供了中间件和属性代理，去除了`routes`的侵入，整个流程仅仅围绕中间件展开。
+由于`express`和`koa`是同一个开发团队，在框架设计上能够看到思路上的一脉相承。
 
-in Node.js,we already have famous frameworks like `express` and `koa`. They are all designed with awesome ideas. Take Koa as an example, It provides middleware utility and property delegation for developers, so that all `Koa` users need to do is to shape the middleware work flow and `call next()` to notify the next middleware handler.
+## `koa`的一些瑕疵
+
+`koa`的中间件的流转完全依赖`next`函数，由于中间件的流转策略采用`koa-compose`。因此整个`koa`流程按照如下形式展开。
+
+
+
+
 
 of course ,Koa's zen is super simple and easy to understand. But, as a `Koa` developer, I always have to search the `Koa` doc to find `ctx.body ctx.status etc` properties which is not an easy job for newcomers.
 
