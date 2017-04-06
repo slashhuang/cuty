@@ -25,56 +25,21 @@ const only = require('only');
 
 module.exports = {
 
-  /**
-   * Return the request socket.
-   *
-   * @return {Connection}
-   * @api public
-   */
-
   get socket() {
     return this.ctx.req.socket;
   },
-
-  /**
-   * Return response header.
-   *
-   * @return {Object}
-   * @api public
-   */
 
   get header() {
     return this.res._headers || {};
   },
 
-  /**
-   * Return response header, alias as response.header
-   *
-   * @return {Object}
-   * @api public
-   */
-
   get headers() {
     return this.header;
   },
 
-  /**
-   * Get response status code.
-   *
-   * @return {Number}
-   * @api public
-   */
-
   get status() {
     return this.res.statusCode;
   },
-
-  /**
-   * Set response status code.
-   *
-   * @param {Number} code
-   * @api public
-   */
 
   set status(code) {
     assert('number' == typeof code, 'status code must be a number');
@@ -86,45 +51,17 @@ module.exports = {
     if (this.body && statuses.empty[code]) this.body = null;
   },
 
-  /**
-   * Get response status message
-   *
-   * @return {String}
-   * @api public
-   */
-
   get message() {
     return this.res.statusMessage || statuses[this.status];
   },
-
-  /**
-   * Set response status message
-   *
-   * @param {String} msg
-   * @api public
-   */
 
   set message(msg) {
     this.res.statusMessage = msg;
   },
 
-  /**
-   * Get response body.
-   *
-   * @return {Mixed}
-   * @api public
-   */
-
   get body() {
     return this._body;
   },
-
-  /**
-   * Set response body.
-   *
-   * @param {String|Buffer|Object|Stream} val
-   * @api public
-   */
 
   set body(val) {
     const original = this._body;
@@ -178,23 +115,11 @@ module.exports = {
     this.type = 'json';
   },
 
-  /**
-   * Set Content-Length field to `n`.
-   *
-   * @param {Number} n
-   * @api public
-   */
 
   set length(n) {
     this.set('Content-Length', n);
   },
 
-  /**
-   * Return parsed response Content-Length when present.
-   *
-   * @return {Number}
-   * @api public
-   */
 
   get length() {
     const len = this.header['content-length'];
@@ -211,46 +136,15 @@ module.exports = {
     return ~~len;
   },
 
-  /**
-   * Check if a header has been written to the socket.
-   *
-   * @return {Boolean}
-   * @api public
-   */
-
   get headerSent() {
     return this.res.headersSent;
   },
 
-  /**
-   * Vary on `field`.
-   *
-   * @param {String} field
-   * @api public
-   */
 
   vary(field) {
     vary(this.res, field);
   },
 
-  /**
-   * Perform a 302 redirect to `url`.
-   *
-   * The string "back" is special-cased
-   * to provide Referrer support, when Referrer
-   * is not present `alt` or "/" is used.
-   *
-   * Examples:
-   *
-   *    this.redirect('back');
-   *    this.redirect('back', '/index.html');
-   *    this.redirect('/login');
-   *    this.redirect('http://google.com');
-   *
-   * @param {String} url
-   * @param {String} [alt]
-   * @api public
-   */
 
   redirect(url, alt) {
     // location
@@ -273,12 +167,6 @@ module.exports = {
     this.body = `Redirecting to ${url}.`;
   },
 
-  /**
-   * Set Content-Disposition header to "attachment" with optional `filename`.
-   *
-   * @param {String} filename
-   * @api public
-   */
 
   attachment(filename) {
     if (filename) this.type = extname(filename);
