@@ -3,7 +3,7 @@
 
 module.exports=(ctx,next)=>{
 
-    console.log(`request comes in at ${Date.now()}`);
+    console.log(`\nrequest comes in at ${Date.now()}`);
     next()
 
 }

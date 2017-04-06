@@ -2,7 +2,7 @@
 /*
  * @Author slashhuang
  * 17/3/31
- * cuty-compose
+ * github.com/slashhuang/cuty
  */
 
  const util = require('util');
@@ -15,21 +15,28 @@
                 return  Promise.resolve({
                             then:(resolve,reject)=>{
                                 let { interceptor } = nextMiddleware;
-                                // call middleware interceptor first
+                                // middleware have its own error handling
                                 if(typeof interceptor=='function'){
                                     Promise.resolve({
                                         then:(res,rej)=>{
+                                            // call middleware interceptor first
                                             interceptor(ctx,res,rej)
                                         }
                                     }).then(()=>{
                                         nextMiddleware(ctx,resolve,reject)
-                                    }).catch(()=>{
-                                        resolve()
+                                    }).catch((error)=>{
+                                        if(error){
+                                            // throw interceptor and middleware error
+                                            reject(error)
+                                        }else{
+                                             // go to next middleware
+                                            resolve()
+                                        }
                                     })
                                 }else{
                                     nextMiddleware(ctx,resolve,reject)
                                 }
-                                
+
                         }})
             });
         }
