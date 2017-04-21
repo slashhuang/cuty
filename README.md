@@ -6,6 +6,11 @@
 
  Basically, Cuty combines the advantage of MVC and middleware-flow to shape Node.js application.
 
+## Notice
+
+ cuty is still under development , not recommended for product usage
+
+
 ## Cuty's features
 
  1. Cuty helps you to build MVC and middleware workflow Node apps.
